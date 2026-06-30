@@ -2,21 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Data Science Programs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE ARCHIVE // INITIATIVE ZERO</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="protectedContent" style="display:none;">
-    <header>
-        <h1>DO it Fast NIGGA ( dont get caught)</h1>
-        <input type="text" id="searchBar" onkeyup="filterPrograms()" placeholder="Search for programs...">
-    </header>
 
-    <main id="programList">
-        <details class="program-item"><summary>CONGESTION CONTROL USING NS</summary><pre><code>write a program to Simulate Congestion Control Algorithms using NS?
+    <div id="gateway">
+        <h1 class="glitch">RESTRICTED DOMAIN</h1>
+        <p>IDENTIFICATION REQUIRED FOR ARCHIVE ACCESS.</p>
+        <input type="password" id="passInput" placeholder="ENTER CLEARANCE CODE" onkeypress="handleEnter(event)">
+        <button onclick="checkClearance()">AUTHENTICATE</button>
+        <p id="errorMsg" style="color: #8a0303; display: none; margin-top: 15px;">[ ERROR: CLEARANCE DENIED ]</p>
+    </div>
 
+    <div id="protectedContent" style="display:none;" class="container">
+        <header>
+            <h1 class="glitch">ARCHIVE // 01</h1>
+            <p class="subtitle">CORE ENGINEERING SCRIPTS</p>
+            <input type="text" id="searchBar" onkeyup="filterPrograms()" placeholder="QUERY DIRECTORY...">
+        </header>
 
-# Create Simulator
+        <main id="programList">
+            
+            <details class="program-item">
+                <summary>01. CONGESTION CONTROL ALGORITHM [NS2]</summary>
+<pre><code># Create Simulator
 set ns [new Simulator]
 
 # Trace files
@@ -93,12 +104,12 @@ proc finish { } {
 $ns at 9.0 "finish"
 
 # Run Simulation
-$ns run
- </code></pre></details>
-        
-        <details class="program-item"><summary>CHARACTER STUFFING</summary><pre><code>b) Character stuffing:
+$ns run</code></pre>
+            </details>
 
-#include <stdio.h>
+            <details class="program-item">
+                <summary>02. CHARACTER STUFFING PROTOCOL [C]</summary>
+<pre><code>#include &lt;stdio.h&gt;
 
 int main() {
     char data[100];
@@ -119,13 +130,34 @@ int main() {
     printf("$");
 
     return 0;
-}
+}</code></pre>
+            </details>
 
-</code></pre></details>
-
-    </main>
+        </main>
+    </div>
 
     <script>
+        // GATEWAY LOGIC
+        const validKey = "rightpass";
+
+        function checkClearance() {
+            const input = document.getElementById('passInput').value;
+            if (input === validKey) {
+                document.getElementById('gateway').style.display = 'none';
+                document.getElementById('protectedContent').style.display = 'block';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                document.getElementById('passInput').value = '';
+            }
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') {
+                checkClearance();
+            }
+        }
+
+        // SEARCH LOGIC
         function filterPrograms() {
             let input = document.getElementById('searchBar').value.toLowerCase();
             let items = document.getElementsByClassName('program-item');
@@ -134,17 +166,6 @@ int main() {
                 items[i].style.display = title.includes(input) ? "" : "none";
             }
         }
-            </script>
-</div>
-    <script>
-    const password = "nigga"; 
-    const userInput = prompt("Please enter the password:");
-    if (userInput === password) {
-        document.getElementById('protectedContent').style.display = 'block';
-    } else {
-        alert("Incorrect password. Access denied.");
-        window.location.href = "about:blank"; 
-    }
-</script>
+    </script>
 </body>
 </html>
