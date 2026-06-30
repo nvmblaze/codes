@@ -1,6 +1,138 @@
-body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-header { margin-bottom: 30px; }
-#searchBar { width: 100%; padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; }
-.program-item { margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; padding: 10px; background: #f9f9f9; }
-summary { font-weight: bold; cursor: pointer; padding: 10px; }
-pre { background: #2d2d2d; color: #f8f8f8; padding: 15px; overflow-x: auto; border-radius: 4px; }
+/* BASE ARCHITECTURE */
+body {
+    background-color: #030303;
+    color: #b0b0b0;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    line-height: 1.6;
+}
+
+/* NOIR LIGHTING / CONTAINER SETTINGS */
+.container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+#gateway {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background: radial-gradient(circle at center, #111 0%, #000 100%);
+}
+
+/* TYPOGRAPHY & BRUTALIST AESTHETICS */
+.glitch {
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: -2px;
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    text-shadow: 3px 3px 0px #8a0303, -1px -1px 0px #333;
+}
+
+.subtitle {
+    color: #666;
+    letter-spacing: 4px;
+    margin-bottom: 50px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 20px;
+}
+
+/* INPUTS & CONTROLS */
+input[type="password"], #searchBar {
+    width: 100%;
+    max-width: 400px;
+    background: #0a0a0a;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 15px 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    outline: none;
+    transition: 0.2s;
+    box-sizing: border-box;
+}
+
+#searchBar {
+    max-width: 100%;
+    margin-bottom: 40px;
+    border-left: 4px solid #8a0303;
+}
+
+input:focus {
+    border-color: #8a0303;
+    background: #111;
+}
+
+button {
+    background: #8a0303;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Arial Black', Impact, sans-serif;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #b50505;
+}
+
+/* PROGRAM BLOCKS */
+.program-item {
+    background: #080808;
+    border: 1px solid #1a1a1a;
+    border-left: 4px solid #333;
+    margin-bottom: 20px;
+    transition: border-color 0.3s ease;
+}
+
+.program-item:hover {
+    border-left-color: #8a0303;
+}
+
+summary {
+    padding: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #eee;
+    background: #0d0d0d;
+    outline: none;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary::after {
+    content: '[ + ]';
+    color: #555;
+}
+
+details[open] summary::after {
+    content: '[ - ]';
+    color: #8a0303;
+}
+
+pre {
+    background: #000;
+    color: #888;
+    padding: 25px;
+    margin: 0;
+    overflow-x: auto;
+    text-transform: none; /* Keeps code casing accurate */
+    font-size: 0.9rem;
+    border-top: 1px solid #1a1a1a;
+}
