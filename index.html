@@ -27,37 +27,24 @@
             
             <details class="program-item">
                 <summary>01. CONGESTION CONTROL ALGORITHM [NS2]</summary>
-<pre><code># Create Simulator
-set ns [new Simulator]
+<pre><code>set ns [new Simulator]
 
-# Trace files
 set tracefile [open congestion.tr w]
 $ns trace-all $tracefile
 
 set namfile [open congestion.nam w]
 $ns namtrace-all $namfile
 
-# Create Nodes
-set n0 [$ns node]   ;# Sender 1
-set n1 [$ns node]   ;# Router
-set n2 [$ns node]   ;# Receiver
-set n3 [$ns node]   ;# Sender 2 (for congestion)
+set n0 [$ns node]
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
 
-# Create Links (bottleneck at n1)
 $ns duplex-link $n0 $n1 2Mb 10ms DropTail
 $ns duplex-link $n3 $n1 2Mb 10ms DropTail
-$ns duplex-link $n1 $n2 1Mb 20ms DropTail   ;# Bottleneck link
+$ns duplex-link $n1 $n2 1Mb 20ms DropTail
 
-# Queue size (to force congestion)
 $ns queue-limit $n1 $n2 10
-
-# -------------------------------
-# TCP Agent (CHANGE HERE)
-# -------------------------------
-# Options:
-# Agent/TCP        -> Tahoe
-# Agent/TCP/Reno   -> Reno
-# Agent/TCP/Newreno -> New Reno
 
 set tcp1 [new Agent/TCP/Reno]
 $tcp1 set class_ 1
@@ -68,7 +55,6 @@ $ns attach-agent $n2 $sink1
 
 $ns connect $tcp1 $sink1
 
-# Second TCP flow (to create congestion)
 set tcp2 [new Agent/TCP/Reno]
 $ns attach-agent $n3 $tcp2
 
@@ -77,21 +63,18 @@ $ns attach-agent $n2 $sink2
 
 $ns connect $tcp2 $sink2
 
-# Applications (FTP traffic)
 set ftp1 [new Application/FTP]
 $ftp1 attach-agent $tcp1
 
 set ftp2 [new Application/FTP]
 $ftp2 attach-agent $tcp2
 
-# Start/Stop Times
 $ns at 0.5 "$ftp1 start"
 $ns at 1.0 "$ftp2 start"
 
 $ns at 8.0 "$ftp1 stop"
 $ns at 8.5 "$ftp2 stop"
 
-# Finish Procedure
 proc finish { } {
     global ns tracefile namfile
     $ns flush-trace
@@ -103,7 +86,6 @@ proc finish { } {
 
 $ns at 9.0 "finish"
 
-# Run Simulation
 $ns run</code></pre>
             </details>
 
@@ -132,13 +114,117 @@ int main() {
     return 0;
 }</code></pre>
             </details>
+<details class="program-item">
+                <summary>Data Link Layer Framing – Character Count Framing</summary>
+<pre><code>
+    #include <stdio.h>
+#include <string.h>
 
+int main()
+{
+    char data[100];
+    int count;
+
+    printf("Enter the data: ");
+    scanf("%s", data);
+
+    count = strlen(data);
+
+    printf("\nCharacter Count Frame: ");
+    printf("%d%s\n", count, data);
+
+    return 0;
+}
+    </code></pre>
+            </details>
+<details class="program-item">
+                <summary>2. Echo Client-Server (TCP)
+Server Program (server.c)</summary>
+<pre><code>
+    #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+int main()
+{
+    int server_fd, client_fd;
+    char buffer[1024] = {0};
+    struct sockaddr_in address;
+    int addrlen = sizeof(address);
+
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
+
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(8080);
+
+    bind(server_fd, (struct sockaddr *)&address, sizeof(address));
+
+    listen(server_fd, 3);
+
+    printf("Waiting for client...\n");
+
+    client_fd = accept(server_fd, (struct sockaddr *)&address, (socklen_t *)&addrlen);
+
+    read(client_fd, buffer, sizeof(buffer));
+
+    printf("Client: %s\n", buffer);
+
+    send(client_fd, buffer, strlen(buffer), 0);
+
+    printf("Echo sent.\n");
+
+    close(client_fd);
+    close(server_fd);
+
+    return 0;
+}
+    </code></pre>
+            </details>
+<details class="program-item">
+                <summary>Client Program (client.c)</summary>
+<pre><code>
+    #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+int main()
+{
+    int sock;
+    struct sockaddr_in serv_addr;
+    char message[1024];
+    char buffer[1024] = {0};
+
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(8080);
+    inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
+
+    connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+
+    printf("Enter message: ");
+    scanf("%s", message);
+
+    send(sock, message, strlen(message), 0);
+
+    read(sock, buffer, sizeof(buffer));
+
+    printf("Echo from Server: %s\n", buffer);
+
+    close(sock);
+
+    return 0 }
+     </code></pre>
+            </details>
         </main>
     </div>
 
     <script>
         // GATEWAY LOGIC
-        const validKey = "rightpass";
+        const validKey = "nigga";
 
         function checkClearance() {
             const input = document.getElementById('passInput').value;
